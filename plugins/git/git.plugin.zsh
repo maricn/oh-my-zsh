@@ -221,3 +221,9 @@ alias gvt='git verify-tag'
 
 alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit -m "--wip--"'
+
+# list temporarily ignored files
+alias gignored='git ls-files -v | grep "^[[:lower:]]"'
+
+# my aliases
+alias gitce='git commit -e'
