@@ -39,13 +39,14 @@ mvn-color()
 }
  
 # Override the mvn command with the colorized one.
-#alias mvn="mvn-color"
+alias mvn="mvn-color"
 
 # aliases
 alias mvncie='mvn clean install eclipse:eclipse'
 alias mvnci='mvn clean install'
 alias mvncist='mvn clean install -DskipTests'
 alias mvncisto='mvn clean install -DskipTests --offline'
+alias mvncist='mvn clean install -DskipTests -Dmaven.test.skip=true'
 alias mvne='mvn eclipse:eclipse'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
 alias mvnd='mvn deploy'
