@@ -8,4 +8,4 @@ projects.zsh
 *.swp
 #!custom/example.zshcache
 cache
-zsh-syntax-highlighting/
+#zsh-syntax-highlighting/
