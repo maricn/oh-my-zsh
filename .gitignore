@@ -6,3 +6,15 @@ custom/
 # temp files directories
 cache/
 log/
+=======
+locals.zsh
+log/.zsh_history
+projects.zsh
+#custom
+#!custom/plugins/example
+#!custom/example.zsh
+#!custom/themes
+*.swp
+#!custom/example.zshcache
+cache
+zsh-syntax-highlighting/
