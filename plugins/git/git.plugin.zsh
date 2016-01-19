@@ -76,14 +76,12 @@ alias gcp='git cherry-pick'
 alias gcs='git commit -S'
 
 alias gd='git diff'
-alias gdh='git diff HEAD~1 HEAD'
 alias gdca='git diff --cached'
 alias gdct='git describe --tags `git rev-list --tags --max-count=1`'
 alias gdt='git diff-tree --no-commit-id --name-only -r'
 gdv() { git diff -w "$@" | view - }
 compdef _git gdv=git-diff
 alias gdw='git diff --word-diff'
-alias gdwh='git diff --word-diff HEAD~1 HEAD'
 
 alias gf='git fetch'
 alias gfa='git fetch --all --prune'
@@ -219,9 +217,3 @@ alias gvt='git verify-tag'
 
 alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit -m "--wip--"'
-
-# list temporarily ignored files
-alias gignored='git ls-files -v | grep "^[[:lower:]]"'
-
-# my aliases
-alias gitce='git commit -e'
