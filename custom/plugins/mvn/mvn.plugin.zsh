@@ -44,7 +44,14 @@ alias mvn="mvn-color"
 # aliases
 alias mvncie='mvn clean install eclipse:eclipse'
 alias mvnci='mvn clean install'
+# skip tests
 alias mvncist='mvn clean install -DskipTests -Dmaven.test.skip=true'
+# do integration tests (IPC)
+alias mvnv='mvn verify'
+# do integration tests (IPC), w/o building the database
+alias mvnvsdb='mvn verify -DskipDbBuilder=true'
+# do integration tests (IPC), exit after building the database, thus skipping tests
+alias mvnvodb='mvn verify -DexitAfterDbBuild=true'
 alias mvne='mvn eclipse:eclipse'
 alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
 alias mvnd='mvn deploy'
