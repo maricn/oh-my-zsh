@@ -148,6 +148,8 @@ alias gke='\gitk --all $(git log -g --pretty=format:%h)'
 compdef _git gke='gitk'
 
 alias gl='git pull'
+alias glorima='git pull origin master'
+alias gloridev='git pull origin develop'
 alias glg='git log --stat'
 alias glgp='git log --stat -p'
 alias glgg='git log --graph'
