@@ -72,7 +72,7 @@ alias gcmsg='git commit -m'
 alias gco='git checkout'
 alias gcount='git shortlog -sn'
 compdef gcount=git
-alias gcp='git cherry-pick'
+alias gcp='git cherry-pick -x'
 alias gcs='git commit -S'
 
 alias gd='git diff'
@@ -228,3 +228,6 @@ alias gignored='git ls-files -v | grep "^[[:lower:]]"'
 
 # my aliases
 alias gitce='git commit -e'
+
+function lswgit() { ls -d1 ~/Workspace/* | xargs -t -I{} git -C {} $@; }
+alias gall="lswgit $@"
