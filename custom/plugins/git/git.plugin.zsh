@@ -76,6 +76,7 @@ alias gcp='git cherry-pick -x'
 alias gcs='git commit -S'
 
 alias gd='git diff'
+alias gdns='git diff --name-status'
 alias gdh='git diff HEAD~1 HEAD'
 alias gdca='git diff --cached'
 alias gdct='git describe --tags `git rev-list --tags --max-count=1`'
