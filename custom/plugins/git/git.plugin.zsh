@@ -202,12 +202,15 @@ alias gsi='git submodule init'
 alias gsps='git show --pretty=short --show-signature'
 alias gsr='git svn rebase'
 
-alias gsta='git stash'
+# Replaced with apply
+alias gsta='git stash apply'
+# Removed gstd - I'm paranoid! # alias gstd='git stash drop'
+
 alias gstaa='git stash apply'
-#alias gstd='git stash drop'
 alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
+
 alias gsu='git submodule update'
 
 alias gts='git tag -s'
@@ -229,6 +232,7 @@ alias gignored='git ls-files -v | grep "^[[:lower:]]"'
 
 # my aliases
 alias gitce='git commit -e'
+alias gitca="git commit --amend"
 
 function lswgit() { ls -d1 ~/Workspace/* | xargs -t -I{} git -C {} $@; }
 alias gall="lswgit $@"
