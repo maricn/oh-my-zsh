@@ -1,20 +1,16 @@
-# custom files
-custom/
-!custom/plugins/example
-!custom/example.zsh
-
-# temp files directories
-cache/
-log/
-=======
 locals.zsh
-log/.zsh_history
 projects.zsh
+*.swp
+
+#zsh-syntax-highlighting/
+
+# custom files
 #custom
 #!custom/plugins/example
 #!custom/example.zsh
 #!custom/themes
-*.swp
 #!custom/example.zshcache
-cache
-#zsh-syntax-highlighting/
+
+# temp files directories
+cache/
+log/
