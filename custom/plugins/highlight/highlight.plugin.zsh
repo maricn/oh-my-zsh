@@ -15,5 +15,5 @@ function highlight() {
 	 
 	fg_c=$(echo -e "\e[1;${fg_color_map[$1]}m")
 	c_rs=$'\e[0m'
-	sad -u s"/$2/$fg_c\0$c_rs/g"
+	sad -e s"/$2/$fg_c\0$c_rs/g"
 }

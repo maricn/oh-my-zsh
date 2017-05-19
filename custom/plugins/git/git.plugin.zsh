@@ -46,10 +46,13 @@ alias gapa='git add --patch'
 
 alias gb='git branch'
 alias gba='git branch -a'
+alias gbavv='git branch -avv'
 alias gbda='git branch --merged | command grep -vE "^(\*|\s*master\s*$)" | command xargs -n 1 git branch -d'
 alias gbl='git blame -b -w'
+alias gbm='git branch --merged'
 alias gbnm='git branch --no-merged'
 alias gbr='git branch --remote'
+
 alias gbs='git bisect'
 alias gbsb='git bisect bad'
 alias gbsg='git bisect good'
@@ -73,10 +76,14 @@ alias gco='git checkout'
 alias gcount='git shortlog -sn'
 compdef gcount=git
 alias gcp='git cherry-pick -x'
+alias gcpc='git cherry-pick --continue'
+alias gcpa='git cherry-pick --abort'
 alias gcs='git commit -S'
 
 alias gd='git diff'
-alias gdns='git diff --name-status'
+alias gds='git diff --staged'
+alias gdg='git diff -b -G'
+alias gdns='git diff --name-status -b'
 alias gdh='git diff HEAD~1 HEAD'
 alias gdca='git diff --cached'
 alias gdct='git describe --tags `git rev-list --tags --max-count=1`'
@@ -210,6 +217,8 @@ alias gstaa='git stash apply'
 alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash save'
+alias gstsu='git stash save --include-untracked'
+alias gstski='git stash save --keep-index'
 
 alias gsu='git submodule update'
 
@@ -217,7 +226,7 @@ alias gts='git tag -s'
 alias gtv='git tag | sort -V'
 
 alias gunignore='git update-index --no-assume-unchanged'
-alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
+alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset --soft HEAD~1'
 alias gup='git pull --rebase'
 alias gupv='git pull --rebase -v'
 alias glum='git pull upstream master'
@@ -236,3 +245,22 @@ alias gitca="git commit --amend"
 
 function lswgit() { ls -d1 ~/Workspace/* | xargs -t -I{} git -C {} $@; }
 alias gall="lswgit $@"
+
+function git-release-notes() {
+  git log --format='* %s' --no-merges `git describe --tags --abbrev=0 2>/dev/null`..HEAD | grep -Ev 'maven-release-plugin|(emptied release notes)|(prepare [0-9.] release)|SPIKE' |  grep -E '\* \[?[A-Z]{3,}' | sed -e 's/\[\?\([A-Z]\+-[0-9]\+\|SPIKE\)[^a-zA-Z0-9]*/\1 -- /' | uniq> RELEASE-NOTES.md
+  git add RELEASE-NOTES.md
+  git commit -s -m "prepare $( ( grep -A 3 -B 3 "<artifactId>$( basename `pwd` )" pom.xml || ( head pom.xml | grep -A 3 -B 3 "<artifactId>" ) ) | grep version | sad -e 's/[^>]\+>\([0-9.]\+\)[-<].\+/\1/' ) release"
+}
+alias greln=git-release-notes
+
+function grco() {
+  UNIQUE_BRANCHES=$(git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print $3 }' | awk ' !x[$0]++' | head -n7)
+  echo "$UNIQUE_BRANCHES"
+}
+
+function grco1() {
+  PREV_BRANCH=$(git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print $3 }' | awk ' !x[$0]++' | head -n1)
+  git checkout $PREV_BRANCH
+}
+
+alias ghop=grco1
