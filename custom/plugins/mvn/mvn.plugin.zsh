@@ -27,6 +27,7 @@ mvn-color()
   (
   # Filter mvn output using sed. Before filtering set the locale to C, so invalid characters won't break some sed implementations
   unset LANG
+  MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xms1048m -Xmx1048m -XX:NewSize=512m -XX:MaxNewSize=512m"
   LC_CTYPE=C mvn $@ | sed -e "s/\(\[INFO\]\)\(.*\)/${TEXT_BLUE}${BOLD}\1${RESET_FORMATTING}\2/g" \
                -e "s/\(\[INFO\]\ BUILD SUCCESSFUL\)/${BOLD}${TEXT_GREEN}\1${RESET_FORMATTING}/g" \
                -e "s/\(\[WARNING\]\)\(.*\)/${BOLD}${TEXT_YELLOW}\1${RESET_FORMATTING}\2/g" \
@@ -39,11 +40,12 @@ mvn-color()
 }
  
 # Override the mvn command with the colorized one.
-alias mvn="mvn-color"
+alias mvn="mvn-color --errors"
 
 # aliases
 alias mvncie='mvn clean install eclipse:eclipse'
 alias mvnci='mvn clean install'
+alias mvncip='mvn clean install -T 1.0C'
 # skip tests
 alias mvncist='mvn clean install -DskipTests -Dmaven.test.skip=true'
 # do integration tests (IPC)
@@ -52,10 +54,8 @@ alias mvnv='mvn verify'
 alias mvnvsdb='mvn verify -DskipDbBuilder=true'
 # do integration tests (IPC), exit after building the database, thus skipping tests
 alias mvnvodb='mvn verify -DexitAfterDbBuild=true'
-alias mvne='mvn eclipse:eclipse'
-alias mvnce='mvn clean eclipse:clean eclipse:eclipse'
 alias mvnd='mvn deploy'
-alias mvnp='mvn package'
+#alias mvnp='mvn package'
 alias mvnc='mvn clean'
 alias mvncom='mvn compile'
 alias mvnct='mvn clean test'
