@@ -82,8 +82,8 @@ alias gcpc='git cherry-pick --continue'
 alias gcpa='git cherry-pick --abort'
 alias gcs='git commit -S'
 
-alias gd='git diff'
-alias gds='git diff --staged'
+alias gd='git diff --diff-filter=d'
+alias gds='git diff --staged --diff-filter=d'
 alias gdg='git diff -b -G'
 alias gdns='git diff --name-status -b'
 alias gdh='git diff HEAD~1 HEAD'
@@ -92,8 +92,8 @@ alias gdct='git describe --tags `git rev-list --tags --max-count=1`'
 alias gdt='git diff-tree --no-commit-id --name-only -r'
 gdv() { git diff -w "$@" | view - }
 compdef _git gdv=git-diff
-alias gdw='git diff --word-diff'
-alias gdwh='git diff --word-diff HEAD~1 HEAD'
+alias gdw='git diff --word-diff --diff-filter=d'
+alias gdwh='git diff --word-diff HEAD~1 HEAD --diff-filter=d'
 
 alias gf='git fetch'
 alias gfa='git fetch --all --prune'
@@ -222,7 +222,7 @@ alias gsta='git stash apply'
 # Removed gstd - I'm paranoid! # alias gstd='git stash drop'
 
 alias gstaa='git stash apply'
-alias gstl='git stash list'
+# alias gstl='git stash list' # overridden by my own gstl
 alias gstp='git stash pop'
 alias gsts='git stash save'
 alias gstsu='git stash save --include-untracked'
@@ -272,3 +272,5 @@ function grco1() {
 }
 
 alias ghop=grco1
+alias gstl='git stash list --pretty=format:"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(120,trunc)%s %C(green)(%ci) %C(bold blue)<%an>%C(reset)"'
+
