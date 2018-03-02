@@ -251,7 +251,7 @@ alias gignored='git ls-files -v | grep "^[[:lower:]]"'
 alias gitce='git commit -e'
 alias gitca="git commit --amend"
 
-function lswgit() { ls -d1 ~/Workspace/* | xargs -t -I{} git -C {} $@; }
+function lswgit() { ls -d1 ${GOPATH_WORKSPACE:-~/Workspace}/* | xargs -t -I{} git -C {} $@; }
 alias gall="lswgit $@"
 
 function git-release-notes() {
