@@ -171,6 +171,7 @@ alias glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias glog='git log --oneline --decorate --color --graph'
 alias glp="_git_log_prettily"
+alias glfb='git log --format=%B -n 1'
 compdef _git glp=git-log
 
 alias gm='git merge'
@@ -194,10 +195,11 @@ alias grbc='git rebase --continue'
 alias grbi='git rebase -i'
 alias grbm='git rebase master'
 alias grbs='git rebase --skip'
-alias grh='git reset HEAD --soft'
-alias grh1='git reset HEAD~1 --soft'
-alias grh2='git reset HEAD~2 --soft'
-alias grh3='git reset HEAD~3 --soft'
+alias grhs='git reset HEAD --soft'
+alias grh='git reset HEAD'
+alias grhs1='git reset HEAD~1 --soft'
+alias grhs2='git reset HEAD~2 --soft'
+alias grhs3='git reset HEAD~3 --soft'
 alias grhh='git reset HEAD --hard'
 alias git-mrs-u-picku-materinu='git reset --soft `git rev-list --max-parents=0 HEAD`' # && git push --force 
 alias grmv='git remote rename'
@@ -267,10 +269,24 @@ function grco() {
 }
 
 function grco1() {
-  PREV_BRANCH=$(git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print $3 }' | awk ' !x[$0]++' | head -n1)
+  PREV_BRANCH=$(git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print $3 }' | awk ' !x[$0]++' | head -n1 | tail -n1)
+  git checkout $PREV_BRANCH
+}
+
+function grco2() {
+  PREV_BRANCH=$(git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print $3 }' | awk ' !x[$0]++' | head -n2 | tail -n1)
+  git checkout $PREV_BRANCH
+}
+
+function grco3() {
+  PREV_BRANCH=$(git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print $3 }' | awk ' !x[$0]++' | head -n3 | tail -n1)
   git checkout $PREV_BRANCH
 }
 
 alias ghop=grco1
 alias gstl='git stash list --pretty=format:"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(120,trunc)%s %C(green)(%ci) %C(bold blue)<%an>%C(reset)"'
+alias grl='git reflog'
+
+function git_fixup_commit_message_amend() { TARGET=$(git rev-parse "$1"); git commit --allow-empty --fixup=$TARGET ${@:2} && git rebase -i --autostash --autosquash $TARGET^; }
+alias gfixmessage='git_fixup_commit_message_amend'
 

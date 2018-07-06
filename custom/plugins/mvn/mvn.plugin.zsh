@@ -39,8 +39,7 @@ mvn-color()
   )
 }
  
-# Override the mvn command with the colorized one.
-alias mvn="mvn-color --errors"
+alias mvn="mvn --errors"
 
 # aliases
 alias mvncie='mvn clean install eclipse:eclipse'
