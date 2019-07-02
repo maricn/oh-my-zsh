@@ -149,8 +149,8 @@ compdef _git ggpur=git-checkout
 
 alias gignore='git update-index --assume-unchanged'
 alias gignored='git ls-files -v | grep "^[[:lower:]]"'
-alias git-svn-dcommit-push='git svn dcommit && git push github master:svntrunk'
-compdef git-svn-dcommit-push=git
+# alias git-svn-dcommit-push='git svn dcommit && git push github master:svntrunk'
+# compdef git-svn-dcommit-push=git
 
 alias gk='\gitk --all --branches'
 compdef _git gk='gitk'
@@ -168,6 +168,7 @@ alias glgga='git log --graph --decorate --all'
 alias glgm='git log --graph --max-count=10'
 alias glo='git log --oneline --decorate --color'
 alias glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glolrn="git log --pretty=format:'* %Cred%h%Creset %C(yellow)%s %C(bold blue)<%an>%Creset' --abbrev-commit \`git describe --abbrev=0 --tags\`..HEAD | sad 's/\([a-zA-Z]\+\-[1-9][0-9]\+\|SPIKE\|HOTFIX\)/\[\1\]\(https:\/\/gomimi.atlassian.net\/browse\/\1\)/gi'"
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias glog='git log --oneline --decorate --color --graph'
 alias glp="_git_log_prettily"
@@ -186,6 +187,7 @@ alias gpoat='git push origin --all && git push origin --tags'
 compdef _git gpoat=git-push
 alias gpu='git push upstream'
 alias gpv='git push -v'
+alias gpsu="git push --set-upstream origin $(git branch | awk '/^\* / { print $2 }')"
 
 alias gr='git remote'
 alias gra='git remote add'
@@ -214,10 +216,10 @@ alias gsb='git status -sb'
 alias gss='git status -s'
 alias gst='git status'
 
-alias gsd='git svn dcommit'
+# alias gsd='git svn dcommit'
 alias gsi='git submodule init'
 alias gsps='git show --pretty=short --show-signature'
-alias gsr='git svn rebase'
+# alias gsr='git svn rebase'
 
 # Replaced with apply
 alias gsta='git stash apply'
