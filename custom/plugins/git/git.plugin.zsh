@@ -182,12 +182,20 @@ alias gmtvim='git mergetool --no-prompt --tool=vimdiff'
 alias gmum='git merge upstream/master'
 
 alias gp='git push'
+alias gpfl='git push --force-with-lease'
 alias gpd='git push --dry-run'
 alias gpoat='git push origin --all && git push origin --tags'
 compdef _git gpoat=git-push
 alias gpu='git push upstream'
 alias gpv='git push -v'
-alias gpsu="git push --set-upstream origin $(git branch | awk '/^\* / { print $2 }')"
+alias gpsu="git push --set-upstream origin \`git symbolic-ref --short HEAD\`"
+function gppr() {
+  local url
+  url=$(gpsu 2>&1 | tee /dev/tty | grep -iEo "https://github.com/.*pull/new/(\w+|[0-9])+")
+  if [ -n "${url}" ]; then 
+    open "$url"
+  fi
+}
 
 alias gr='git remote'
 alias gra='git remote add'
