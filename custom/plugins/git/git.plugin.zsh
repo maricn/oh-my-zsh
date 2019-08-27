@@ -191,7 +191,7 @@ alias gpv='git push -v'
 alias gpsu="git push --set-upstream origin \`git symbolic-ref --short HEAD\`"
 function gppr() {
   local url
-  url=$(gpsu 2>&1 | tee /dev/tty | grep -iEo "https://github.com/.*pull/new/(\w+|[0-9])+")
+  url=$(gpsu 2>&1 | tee /dev/tty | grep -iEo "https://github.com/.*pull/new/(\w+|[0-9]|-)+")
   if [ -n "${url}" ]; then 
     open "$url"
   fi
