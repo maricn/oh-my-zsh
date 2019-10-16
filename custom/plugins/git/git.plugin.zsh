@@ -165,10 +165,11 @@ alias glg='git log --stat --color'
 alias glgp='git log --stat --color -p'
 alias glgg='git log --graph --color'
 alias glgga='git log --graph --decorate --all'
-alias glgm='git log --graph --max-count=10'
+alias glgm="git log --graph --max-count=10"
+alias glgsm="git log --graph --max-count=10 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold white)%s%Creset %Cgreen(%ci) %C(bold blue) ⪡%an⪢%Creset%n%+b'"
 alias glo='git log --oneline --decorate --color'
 alias glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias glolrn="git log --pretty=format:'* %Cred%h%Creset %C(yellow)%s %C(bold blue)<%an>%Creset' --abbrev-commit \`git describe --abbrev=0 --tags\`..HEAD | sad 's/\([a-zA-Z]\+\-[1-9][0-9]\+\|SPIKE\|HOTFIX\)/\[\1\]\(https:\/\/gomimi.atlassian.net\/browse\/\1\)/gi'"
+alias glolrn="git log --pretty=format:'* %Cred%h%Creset %C(yellow)%s %C(bold blue)⪡%an⪢%Creset' --abbrev-commit \`git describe --abbrev=0 --tags\`..HEAD | sad 's/\([a-zA-Z]\+\-[1-9][0-9]\+\|SPIKE\|HOTFIX\)/\[\1\]\(https:\/\/gomimi.atlassian.net\/browse\/\1\)/gi'"
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias glog='git log --oneline --decorate --color --graph'
 alias glp="_git_log_prettily"
