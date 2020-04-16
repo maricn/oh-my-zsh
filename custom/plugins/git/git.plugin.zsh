@@ -169,7 +169,7 @@ alias glgm="git log --graph --max-count=10"
 alias glgsm="git log --graph --max-count=10 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold white)%s%Creset %Cgreen(%ci) %C(bold blue) ⪡%an⪢%Creset%n%+b'"
 alias glo='git log --oneline --decorate --color'
 alias glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias glolrn="git log --pretty=format:'* %Cred%h%Creset %C(yellow)%s %C(bold blue)⪡%an⪢%Creset' --abbrev-commit \`git describe --abbrev=0 --tags\`..HEAD | sad 's/\([a-zA-Z]\+\-[1-9][0-9]\+\|SPIKE\|HOTFIX\)/\[\1\]\(https:\/\/gomimi.atlassian.net\/browse\/\1\)/gi'"
+alias glolrn="git log --pretty=format:'* %Cred%h%Creset %C(yellow)%s %C(bold blue) &lt;%ae&gt;%Creset' --abbrev-commit \`git describe --abbrev=0 --tags\`..HEAD | sad 's/\([a-zA-Z]\+\-[1-9][0-9]\+\|SPIKE\|HOTFIX\)/\[\1\]\(https:\/\/gomimi.atlassian.net\/browse\/\1\)/gi'"
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias glog='git log --oneline --decorate --color --graph'
 alias glp="_git_log_prettily"
@@ -190,13 +190,7 @@ compdef _git gpoat=git-push
 alias gpu='git push upstream'
 alias gpv='git push -v'
 alias gpsu="git push --set-upstream origin \`git symbolic-ref --short HEAD\`"
-function gppr() {
-  local url
-  url=$(gpsu 2>&1 | tee /dev/tty | grep -iEo "https://github.com/.*pull/new/(\w+|[0-9]|-)+")
-  if [ -n "${url}" ]; then 
-    open "$url"
-  fi
-}
+alias gppr="hub pull-request -pF - --edit < .github/PULL_REQUEST_TEMPLATE.md"
 
 alias gr='git remote'
 alias gra='git remote add'
