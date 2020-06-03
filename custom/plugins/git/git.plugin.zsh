@@ -160,7 +160,9 @@ compdef _git gke='gitk'
 alias gl='git pull'
 alias glff='git pull --ff-only'
 alias glorima='git pull origin master'
+alias glupma='git pull upstream master'
 alias glorimaff='git pull origin master --ff-only'
+alias glupmaff='git pull upstream master --ff-only'
 alias glg='git log --stat --color'
 alias glgp='git log --stat --color -p'
 alias glgg='git log --graph --color'
@@ -294,4 +296,3 @@ alias grl='git reflog'
 
 function git_fixup_commit_message_amend() { TARGET=$(git rev-parse "$1"); git commit --allow-empty --fixup=$TARGET ${@:2} && git rebase -i --autostash --autosquash $TARGET^; }
 alias gfixmessage='git_fixup_commit_message_amend'
-
