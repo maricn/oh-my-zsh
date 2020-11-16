@@ -1,17 +1,15 @@
+# If ZSH is not defined, use the current script's directory.
+[[ -z "$ZSH" ]] && export ZSH="${${(%):-%x}:a:h}"
+
 # Set ZSH_CACHE_DIR to the path where cache files should be created
 # or else we will use the default cache/
 if [[ -z "$ZSH_CACHE_DIR" ]]; then
   ZSH_CACHE_DIR="$ZSH/cache"
 fi
 
-# Migrate .zsh-update file to $ZSH_CACHE_DIR
-if [ -f ~/.zsh-update ] && [ ! -f ${ZSH_CACHE_DIR}/.zsh-update ]; then
-    mv ~/.zsh-update ${ZSH_CACHE_DIR}/.zsh-update
-fi
-
 # Check for updates on initial load...
 if [ "$DISABLE_AUTO_UPDATE" != "true" ]; then
-  env ZSH=$ZSH ZSH_CACHE_DIR=$ZSH_CACHE_DIR DISABLE_UPDATE_PROMPT=$DISABLE_UPDATE_PROMPT zsh -f $ZSH/tools/check_for_upgrade.sh
+  source $ZSH/tools/check_for_upgrade.sh
 fi
 
 # Initializes Oh My Zsh
@@ -85,7 +83,9 @@ fi
 
 # Append zcompdump metadata if missing
 if (( $zcompdump_refresh )); then
-  cat >>| "$ZSH_COMPDUMP" <<EOF
+  # Use `tee` in case the $ZSH_COMPDUMP filename is invalid, to silence the error
+  # See https://github.com/ohmyzsh/ohmyzsh/commit/dd1a7269#commitcomment-39003489
+  tee -a "$ZSH_COMPDUMP" &>/dev/null <<EOF
 
 $zcompdump_revision
 $zcompdump_fpath
