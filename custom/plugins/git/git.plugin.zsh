@@ -171,7 +171,7 @@ alias glgm="git log --graph --max-count=10"
 alias glgsm="git log --graph --max-count=10 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold white)%s%Creset %Cgreen(%ci) %C(bold blue) ⪡%an⪢%Creset%n%+b'"
 alias glo='git log --oneline --decorate --color'
 alias glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias glolrn="git log --pretty=format:'* %Cred%h%Creset %C(yellow)%s %C(bold blue) &lt;%ae&gt;%Creset' --abbrev-commit \`git describe --abbrev=0 --tags\`..HEAD | sad 's/\([a-zA-Z]\+\-[1-9][0-9]\+\|SPIKE\|HOTFIX\)/\[\1\]\(https:\/\/gomimi.atlassian.net\/browse\/\1\)/gi'"
+alias glolrn="git log --pretty=format:'* %C(yellow)%s %C(bold blue) &lt;%ae&gt;%Creset' --abbrev-commit \`git describe --abbrev=0 --tags 2>/dev/null || git rev-list --max-parents=0 HEAD\`..HEAD | gsed 's/\([a-zA-Z]\+\-[1-9][0-9]\+\|SPIKE\|HOTFIX\)/\[\1\]\(https:\/\/gomimi.atlassian.net\/browse\/\1\)/gi'"
 alias glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 alias glog='git log --oneline --decorate --color --graph'
 alias glp="_git_log_prettily"
@@ -266,7 +266,7 @@ alias gall="lswgit $@"
 function git-release-notes() {
   git log --format='* %s' --no-merges `git describe --tags --abbrev=0 2>/dev/null`..HEAD | grep -Ev 'maven-release-plugin|(emptied release notes)|(prepare [0-9.] release)|SPIKE' |  grep -E '\* \[?[A-Z]{3,}' | sed -e 's/\[\?\([A-Z]\+-[0-9]\+\|SPIKE\)[^a-zA-Z0-9]*/\1 -- /' | uniq> RELEASE-NOTES.md
   git add RELEASE-NOTES.md
-  git commit -s -m "prepare $( ( grep -A 3 -B 3 "<artifactId>$( basename `pwd` )" pom.xml || ( head pom.xml | grep -A 3 -B 3 "<artifactId>" ) ) | grep version | sad -e 's/[^>]\+>\([0-9.]\+\)[-<].\+/\1/' ) release"
+  git commit -s -m "prepare $( ( grep -A 3 -B 3 "<artifactId>$( basename `pwd` )" pom.xml || ( head pom.xml | grep -A 3 -B 3 "<artifactId>" ) ) | grep version | gsed -e 's/[^>]\+>\([0-9.]\+\)[-<].\+/\1/' ) release"
 }
 alias greln=git-release-notes
 
